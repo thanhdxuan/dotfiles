@@ -8,6 +8,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+#prompt fade PS1=${PS1//\%K{blue}/%k}
 ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
@@ -101,5 +102,5 @@ alias zshconfig="nvim ~/.zshrc"
 alias wifilist="nmcli device wifi list"
 alias wifiBK25="nmcli device wifi connect "BK-2.5" password thanh678"
 alias glog="git log --graph --oneline --decorate --all"
-alias gsync="git checkout master && git fetch upstream && git rebase upstream/master && git push"
+alias gsync="git fetch upstream && git rebase upstream/main && git push"
 # alias ohmyzsh="mate ~/.oh-my-zsh"

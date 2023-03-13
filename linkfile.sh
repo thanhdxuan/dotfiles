@@ -4,6 +4,7 @@ function link_dotfiles {
 
   ln -s $(pwd)/.zshrc ~/.zshrc
   ln -s $(pwd)/tmux.conf ~/.config/tmux/tmux.conf
+  ln -s $(pwd)/alacritty.yml ~/.config/alacritty/alacritty.yml
   # ln -s $(pwd)/vim ~/.vim
   # ln -s $(pwd)/vimrc ~/.vimrc
   # ln -s $(pwd)/vimrc.bundles ~/.vimrc.bundles
