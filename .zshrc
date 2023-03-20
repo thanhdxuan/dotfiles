@@ -103,4 +103,12 @@ alias wifilist="nmcli device wifi list"
 alias wifiBK25="nmcli device wifi connect "BK-2.5" password thanh678"
 alias glog="git log --graph --oneline --decorate --all"
 alias gsync="git fetch upstream && git rebase upstream/main && git push"
+
+#alias for Sem222 HCMUT
+#
+alias goleet="cd ~/Documents/CP/LeetCode/"
+alias goppl="cd ~/Documents/222/PPL_Doc/"
+alias goproject="cd ~/Documents/222/DADN/"
+alias gocurrsem="cd ~/Documents/222/"
+alias goconf="cd ~/Documents/setups/dotfiles/"
 # alias ohmyzsh="mate ~/.oh-my-zsh"

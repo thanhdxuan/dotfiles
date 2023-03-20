@@ -43,7 +43,7 @@ colors:
     background: '#44475a'
   normal:
     black: '#21222c'
-    red: '#ff5555'
+    red: '#ea0155'
     green: '#50fa7b'
     yellow: '#f1fa8c'
     blue: '#bd93f9'
