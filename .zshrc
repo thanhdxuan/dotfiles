@@ -78,7 +78,7 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
-export PATH="/home/thanhdxn/.flutter/flutter/bin:$PATH"
+export PATH="/usr/local/texlive/2024/bin/x86_64-linux:$PATH"
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
@@ -113,8 +113,26 @@ alias goproject="cd ~/Documents/222/DADN/"
 alias gocurrsem="cd ~/Documents/222/"
 alias goconf="cd ~/Documents/setups/dotfiles/"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias vi="nvim"
+alias vim="nvim"
 
 export LANG=en_US.UTF-8
 GTK_IM_MODULE=ibus
 QT_IM_MODULE=ibus
 XMODIFIERS=@im=ibus
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
+
+## workaround for handling TERM variable in multiple tmux sessions properly (by Nicholas Marriott)
+if [[ -n ${TMUX} && -n ${commands[tmux]} ]];then
+        case $(tmux showenv TERM 2>/dev/null) in
+                *256color) ;&
+                TERM=fbterm)
+                        TERM=screen-256color ;;
+                *)
+                        TERM=screen
+        esac
+fi
