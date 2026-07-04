@@ -1,0 +1,23 @@
+[env]
+TERM = "xterm-256color"
+
+[general]
+import = [
+  "~/.config/alacritty/env_vars.toml",
+  "~/.config/alacritty/themes/themes/oceanic_next.toml"
+]
+
+[window]
+dynamic_title = true
+padding.x = 10
+padding.y = 10
+blur = true
+option_as_alt = "Both"
+
+[font]
+normal = {
+  family = "CaskaydiaMono Nerd Font",
+  style = "Light"
+}
+size = 15
+
