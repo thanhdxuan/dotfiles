@@ -1,0 +1,7 @@
+[env]
+# Define env variables here
+# PI_SERVER = "129.90.168.1"
+MY_NAME = "thanhd"
+MY_EMAIL = "hello.thanhdauxuan@gmail.com"
+DARK_THEME=oceanic-next
+LIGHT_THEME=one_light
