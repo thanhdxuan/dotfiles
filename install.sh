@@ -49,7 +49,7 @@ install_packages() {
     macos)
       has brew || die "Homebrew is missing: https://brew.sh"
       brew install zsh tmux ripgrep
-      brew install --cask alacritty
+      # brew install --cask alacritty
       ;;
     linux)
       if has pacman; then

@@ -96,7 +96,7 @@ post_link() {
     log "tmux plugins skipped: TPM not found (./install.sh tpm)"
   fi
 
-  log "Done. Open a new shell; first nvim start installs its plugins."
+  log "Done. Open a new shell; first nvim start installs its plugins and follow by :Lazy sync"
 }
 
 do_unlink() {
