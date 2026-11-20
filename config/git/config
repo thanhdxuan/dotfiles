@@ -1,0 +1,21 @@
+# Linked to ~/.config/git/config by link.sh.
+# Machine-specific overrides (e.g. a work email) go in ~/.gitconfig.local,
+# which is untracked and included at the bottom.
+
+[core]
+  editor = nvim
+[user]
+  email = hello.thanhdauxuan@gmail.com
+  name = Thanh Dau
+[pull]
+  ff = only
+[alias]
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  ls = log --pretty=format:'%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]' --decorate --date=short
+  lg-full = log --name-status --pretty=fuller
+  # Check out a GitLab merge request: git mr <remote> <id>
+  mr = !sh -c 'git fetch $1 merge-requests/$2/head:mr-$1-$2 && git checkout mr-$1-$2' -
+
+# Keep last so local settings win
+[include]
+  path = ~/.gitconfig.local
