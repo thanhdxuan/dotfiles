@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+# Switch nvim (NvChad) and alacritty between a light and a dark theme.
+#
+#   theme-switch [auto|light|dark]    default: auto (light during the day)
+#
+# Writes the choice to ~/.local/state/dotfiles/ (outside the repo, so git
+# stays clean). chadrc.lua and alacritty.toml read it from there. Alacritty
+# reloads by itself; running nvim instances are told to reload. Does nothing
+# if the theme is already right, so it is cheap to call from zshrc.
+#
+# Override any setting below by exporting it, e.g. in ~/.zshrc.local.
+set -euo pipefail
+
+: "${THEME_TZ:=Asia/Ho_Chi_Minh}"
+: "${THEME_LIGHT_FROM:=8}"   # light from 08:00 ...
+: "${THEME_LIGHT_UNTIL:=18}" # ... until 18:00
+: "${NVIM_DARK_THEME:=oceanic-next}"
+: "${NVIM_LIGHT_THEME:=one_light}"
+: "${ALACRITTY_DARK_THEME:=oceanic_next}"
+: "${ALACRITTY_LIGHT_THEME:=one_light}"
+
+state_dir="$HOME/.local/state/dotfiles"
+alacritty_themes="${XDG_CONFIG_HOME:-$HOME/.config}/alacritty/themes/themes"
+
+mode="${1:-auto}"
+if [[ $mode == auto ]]; then
+  hour=$((10#$(TZ="$THEME_TZ" date +%H))) # 10# so "08"/"09" aren't read as octal
+  if ((hour >= THEME_LIGHT_FROM && hour < THEME_LIGHT_UNTIL)); then
+    mode=light
+  else
+    mode=dark
+  fi
+fi
+
+case $mode in
+  light) nvim_theme=$NVIM_LIGHT_THEME alacritty_theme=$ALACRITTY_LIGHT_THEME ;;
+  dark) nvim_theme=$NVIM_DARK_THEME alacritty_theme=$ALACRITTY_DARK_THEME ;;
+  *)
+    echo "usage: theme-switch [auto|light|dark]" >&2
+    exit 2
+    ;;
+esac
+
+mkdir -p "$state_dir"
+want="$mode $nvim_theme $alacritty_theme"
+if [[ "$(cat "$state_dir/current" 2>/dev/null)" == "$want" ]]; then
+  exit 0
+fi
+
+# --- alacritty: copy the theme file into the imported slot -------------------
+src="$alacritty_themes/$alacritty_theme.toml"
+if [[ -f $src ]]; then
+  cp "$src" "$state_dir/alacritty-theme.toml.tmp"
+  mv "$state_dir/alacritty-theme.toml.tmp" "$state_dir/alacritty-theme.toml"
+else
+  echo "theme-switch: $src not found (run install.sh)" >&2
+  : >"$state_dir/alacritty-theme.toml" # keep the import valid
+fi
+
+# --- nvim -----------------------------------------------------------------------
+printf '%s\n' "$nvim_theme" >"$state_dir/nvim-theme"
+
+# Instances started later pick the theme up by themselves: init.lua rebuilds
+# the highlight cache when it doesn't match chadrc (lua/configs/theme.lua).
+# Running instances are repainted now. --remote-expr runs code directly;
+# unlike --remote-send it doesn't type keys into whatever mode nvim is in.
+# Instances running some other config don't have configs.theme, so the call
+# fails and they are left alone.
+if command -v nvim >/dev/null; then
+  shopt -s nullglob
+  for sock in "${XDG_RUNTIME_DIR:-${TMPDIR:-/tmp}}"/nvim.*; do
+    [[ -S $sock ]] || continue
+    nvim --server "$sock" --remote-expr \
+      'execute("lua require(\"configs.theme\").reload()")' >/dev/null 2>&1 || true
+  done
+fi
+
+printf '%s\n' "$want" >"$state_dir/current"

@@ -1,0 +1,28 @@
+[env]
+TERM = "xterm-256color"
+
+[general]
+# Later imports override earlier ones; this file overrides all of them.
+import = [
+  # Fallback theme, in case theme-switch hasn't run yet
+  #"~/.config/alacritty/themes/themes/one_light.toml",
+  # Current light/dark theme, written by bin/theme-switch
+  "~/.local/state/dotfiles/alacritty-theme.toml",
+  # Machine-specific / private settings (untracked, created by link.sh)
+  "~/.config/alacritty/local.toml",
+]
+
+[window]
+dynamic_title = true
+padding = { x = 10, y = 10 }
+blur = true
+option_as_alt = "Both" # macOS only
+
+[font]
+normal = { family = "CaskaydiaMono Nerd Font", style = "Light" }
+size = 13
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001B\r"
