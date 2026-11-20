@@ -7,7 +7,7 @@ M.file_path = function()
     path = "[No Name]"
   end
   -- "%" is special in statusline strings
-  return "%#St_file# " .. path:gsub("%%", "%%%%") .. " "
+  return "%#St_file# " .. "%F" .. "%#St_file_sep#" .. ""
 end
 
 return M

@@ -18,10 +18,12 @@ LINKS=(
   "config/tmux/tmux.conf|$CONFIG_HOME/tmux/tmux.conf"
   "config/alacritty/alacritty.toml|$CONFIG_HOME/alacritty/alacritty.toml"
   "zsh/zshrc|$HOME/.zshrc"
+  "config/git/config|$CONFIG_HOME/git/config"
 )
 # Paths that would silently override a link above; moved to the backup too.
 SHADOWS=(
   "$HOME/.tmux.conf" # tmux reads this before ~/.config/tmux/tmux.conf
+  "$HOME/.gitconfig" # git reads this after ~/.config/git/config, so it would win
 )
 
 DRY_RUN=0

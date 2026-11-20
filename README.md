@@ -10,6 +10,7 @@ Configs for **nvim** (NvChad), **tmux**, **alacritty** and **zsh** (oh-my-zsh). 
 | `config/tmux/tmux.conf` | `~/.config/tmux/tmux.conf` |
 | `config/alacritty/alacritty.toml` | `~/.config/alacritty/alacritty.toml` |
 | `zsh/zshrc` | `~/.zshrc` |
+| `config/git/config` | `~/.config/git/config` (`~/.gitconfig` is moved aside, since it would override it) |
 | `bin/` | on `PATH` via zshrc |
 
 ## Prerequisites

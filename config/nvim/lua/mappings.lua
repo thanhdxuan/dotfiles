@@ -4,6 +4,20 @@ require "nvchad.mappings"
 
 local map = vim.keymap.set
 
+map("n", "<leader>e", function ()
+  local tree = require("nvim-tree.api").tree
+  if tree.is_visible() then
+    if vim.bo.filetype == "NvimTree" then
+      vim.cmd("wincmd p") -- Jump back to the previous buffer
+    else
+      tree.focus()
+    end
+  else
+    tree.toggle()
+  end
+end, { desc = "Toggle & Focus NvimTree" })
+
+
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
 
