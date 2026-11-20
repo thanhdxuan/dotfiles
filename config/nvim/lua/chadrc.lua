@@ -23,6 +23,20 @@ M.base46 = {
   theme_toggle = { DARK_THEME, LIGHT_THEME },
 }
 
+-- Installed by :MasonInstallAll. Listed explicitly because NvChad's
+-- auto-detection misses servers enabled with vim.lsp.enable (nvim 0.12).
+-- Keep in sync with `servers` in configs/lspconfig.lua and conform's formatters.
+M.mason = {
+  pkgs = {
+    "lua-language-server",
+    "html-lsp", -- html
+    "css-lsp", -- cssls
+    "gopls",
+    "pyright",
+    "stylua",
+  },
+}
+
 M.ui = {
   statusline = {
     theme = "default",
