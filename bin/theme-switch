@@ -68,7 +68,8 @@ printf '%s\n' "$nvim_theme" >"$state_dir/nvim-theme"
 # fails and they are left alone.
 if command -v nvim >/dev/null; then
   shopt -s nullglob
-  for sock in "${XDG_RUNTIME_DIR:-${TMPDIR:-/tmp}}"/nvim.*; do
+  base="${XDG_RUNTIME_DIR:-${TMPDIR:-/tmp}}"
+  for sock in "$base"/nvim.* "$base"/nvim.*/*/nvim.*; do
     [[ -S $sock ]] || continue
     nvim --server "$sock" --remote-expr \
       'execute("lua require(\"configs.theme\").reload()")' >/dev/null 2>&1 || true
